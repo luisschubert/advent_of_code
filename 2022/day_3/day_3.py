@@ -12,7 +12,7 @@ def convert_character_to_priority_number(character):
         assert False is True
     return priority_num
 
-def initial_solution():
+def part_1_solution():
     priority_count = 0
     with open("input.txt") as file:
         for line in file:
@@ -32,13 +32,9 @@ def initial_solution():
 
             compartment_1 = sanitized_items[:midpoint]
             compartment_2 = sanitized_items[midpoint:]
-            # print(compartment_1)
-            # print(compartment_2)
 
             set_1 = set(compartment_1)
             set_2 = set(compartment_2)
-            # print(set_1)
-            # print(set_2)
 
             in_both_sets = ""
 
@@ -46,12 +42,40 @@ def initial_solution():
                 if element in set_2:
                     in_both_sets = element
 
-            # print(in_both_sets)
-            # print("\n\n")
-            # pdb.set_trace()
             priority_count = priority_count + convert_character_to_priority_number(in_both_sets)
 
     print(priority_count)
 
+def part_2_solution():
 
-initial_solution()
+    def get_badge(group):
+        set_1 = group[0]
+        set_2 = group[1]
+        set_3 = group[2]
+        
+        in_all_sets = None
+
+        for element in set_1:
+            if (element in set_2) and (element in set_3):
+                in_all_sets = element
+        return in_all_sets
+
+    priority_count = 0
+    count = 0
+    new_group = []
+    with open("input.txt") as file:
+        for line in file:
+            # remove \n
+            sanitized_items = line.strip()
+
+            new_group.append(sanitized_items)
+            count = count + 1
+            if count == 3:
+                priority_count = priority_count + convert_character_to_priority_number(get_badge(new_group))
+                new_group = []
+                count = 0
+
+    print(priority_count)
+
+part_1_solution()
+part_2_solution()
