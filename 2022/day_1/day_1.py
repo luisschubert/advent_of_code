@@ -1,4 +1,4 @@
-
+import time
 
 def quick_solution():
     res_sum = []
@@ -62,7 +62,10 @@ def improved_solution():
     print("question 2 result")
     print(sum(res_sum))
 
-
+start = time.time()
 quick_solution()
+print('quick_solution took:{}'.format(time.time()-start))
 
+start = time.time()
 improved_solution()
+print('improved_solution took:{}'.format(time.time()-start))
